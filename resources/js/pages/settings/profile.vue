@@ -1,34 +1,26 @@
 <template>
   <card :title="$t('your_info')">
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('info_updated')" />
-
+      <b-message v-if="form.successful" title="Success" type="is-success" aria-close-label="Close message">
+        {{ $t('info_updated') }}
+      </b-message>
       <!-- Name -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
-          <has-error :form="form" field="name" />
-        </div>
-      </div>
+      <b-field :label="$t('name')" :message=" form.errors.has('name') ? form.errors.errors.name:null"
+               :type="{ 'is-danger': form.errors.has('name') }"
+      >
+        <b-input v-model="form.name" type="text" name="name"/>
+      </b-field>
 
       <!-- Email -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-          <has-error :form="form" field="email" />
-        </div>
-      </div>
-
+      <b-field :label="$t('email')" :message=" form.errors.has('email') ? form.errors.errors.email:null"
+               :type="{ 'is-danger': form.errors.has('email') }"
+      >
+        <b-input v-model="form.email" type="email" name="email" />
+      </b-field>
       <!-- Submit Button -->
-      <div class="form-group row">
-        <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">
-            {{ $t('update') }}
-          </v-button>
-        </div>
-      </div>
+      <b-button :loading="form.busy" native-type="submit">
+        {{ $t('update') }}
+      </b-button>
     </form>
   </card>
 </template>

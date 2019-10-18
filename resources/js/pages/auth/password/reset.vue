@@ -1,49 +1,43 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
-        <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status" />
+  <section class="section">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <card :title="$t('reset_password')">
+          <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
+            <alert-success :form="form" :message="status" />
+            <b-message v-if="status" title="Success" type="is-success" aria-close-label="Close message">
+              {{ status }}
+            </b-message>
+            <!-- Email -->
+            <b-field :label="$t('email')" :message=" form.errors.has('email') ? form.errors.errors.email:null"
+                     :type="{ 'is-danger': form.errors.has('email') }"
+            >
+              <b-input v-model="form.email" type="email" name="email" />
+            </b-field>
 
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" readonly>
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+            <!-- Password -->
+            <b-field :label="$t('password')" :message=" form.errors.has('password') ? form.errors.errors.password:null"
+                     :type="{ 'is-danger': form.errors.has('password') }"
+            >
+              <b-input v-model="form.password" type="password" name="password" />
+            </b-field>
 
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password" />
-            </div>
-          </div>
+            <!-- Password Confirmation -->
+            <b-field :label="$t('confirm_password')" :message=" form.errors.has('password_confirmation') ? form.errors.errors.password_confirmation:null"
+                     :type="{ 'is-danger': form.errors.has('password_confirmation') }"
+            >
+              <b-input v-model="form.password_confirmation" type="password" name="password_confirmation" />
+            </b-field>
 
-          <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
-              <has-error :form="form" field="password_confirmation" />
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">
-                {{ $t('reset_password') }}
-              </v-button>
-            </div>
-          </div>
-        </form>
-      </card>
+            <!-- Submit Button -->
+            <b-button :loading="form.busy" native-type="submit">
+              {{ $t('reset_password') }}
+            </b-button>
+          </form>
+        </card>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

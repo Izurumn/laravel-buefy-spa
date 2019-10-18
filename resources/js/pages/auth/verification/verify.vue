@@ -1,28 +1,28 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('verify_email')">
-        <template v-if="success">
-          <div class="alert alert-success" role="alert">
-            {{ success }}
-          </div>
-
-          <router-link :to="{ name: 'login' }" class="btn btn-primary">
-            {{ $t('login') }}
-          </router-link>
-        </template>
-        <template v-else>
-          <div class="alert alert-danger" role="alert">
-            {{ error || $t('failed_to_verify_email') }}
-          </div>
-
-          <router-link :to="{ name: 'verification.resend' }" class="small float-right">
-            {{ $t('resend_verification_link') }}
-          </router-link>
-        </template>
-      </card>
+  <section class="section">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <card :title="$t('verify_email')">
+          <template v-if="success">
+            <div class="notification is-success" role="alert">
+              {{ success }}
+            </div>
+            <b-button tag="router-link" type="is-success" :to="{ name: 'login' }" outlined>
+              {{ $t('login') }}
+            </b-button>
+          </template>
+          <template v-else>
+            <div class="notification is-danger" role="alert">
+              {{ error || $t('failed_to_verify_email') }}
+            </div>
+            <b-button tag="router-link" :to="{ name: 'verification.resend' }" type="is-danger" outlined>
+              {{ $t('resend_verification_link') }}
+            </b-button>
+          </template>
+        </card>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

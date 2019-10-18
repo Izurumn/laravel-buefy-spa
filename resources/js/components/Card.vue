@@ -1,10 +1,12 @@
 <template>
   <div class="card">
     <div v-if="title" class="card-header">
+      <p class="card-header-title">
       {{ title }}
+      </p>
     </div>
 
-    <div class="card-body">
+    <div class="card-content">
       <slot />
     </div>
   </div>
