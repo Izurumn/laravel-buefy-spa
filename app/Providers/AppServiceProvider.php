@@ -5,7 +5,8 @@ namespace App\Providers;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Contracts\Sha256Hasher\Sha256Hasher;
+use Hash;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->runningUnitTests()) {
             Schema::defaultStringLength(191);
         }
+
+        Hash::extend('sha256', function () {
+         return new Sha256Hasher();
+       });
     }
 
     /**

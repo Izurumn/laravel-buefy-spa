@@ -1,54 +1,107 @@
 <template>
-  <section class="hero is-fullheight is-primary">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
-      <navbar />
-    </div>
-    <!-- Hero content: will be in the middle -->
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title">
-          Laravel-Buefy-SPA
-        </h1>
-        <h2 class="subtitle">
-          <a href="https://github.com/veloace/laravel-buefy-spa" target="_blank">https://github.com/veloace/laravel-buefy-spa</a>
-        </h2>
+  <div>
+  <section class="hero container is-medium blg">
+    <div class="hero-body bbar">
+      <div class="container">
+        <h1 class="title">Nexus сайтад тавтай морил</h1>
+        <h3 class="title is-5">
+          Байнгын шинэчлэлт, маш олон төрлийн сервер,<br> Монголын хамгийн олон тоглогчтой серверт нэгдэхэд бэлэн үү?
+          <br>
+      </h3>
+      <b-button class="is-light" size="is-large" tag="a" href="http://mc00.animax.mn/dl/Minecraft.exe" target="_blank">
+        MINECRAFT ТАТАХ
+      </b-button>
       </div>
     </div>
-
-    <!-- Hero footer: will stick at the bottom -->
-    <div class="hero-foot">
-      <nav class="tabs">
-        <div class="container">
-          <ul>
-            <li><a href="https://buefy.org" target="_blank">Buefy</a></li>
-            <li><a href="https://github.com/cretueusebiu/laravel-vue-spa" target="_blank">Laravel-Vue SPA</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
   </section>
-</template>
+  <div class="container">
+  <article class="message" v-for="posts in post"
+   :key="post.id" >
+<div class="message-header">
+  {{posts.title}}
+</div>
+<div class="message-body" v-html="posts.body">
 
+</div>
+</article>
+</div>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <a href="">Facebook</a>
+      <a href="">Discord</a>
+    </p>
+  </div>
+</footer>
+</div>
+</template>
+<style>
+.s2 {
+  color:white;
+}
+.p-1 {
+  padding: 1em;
+}
+
+</style>
 <script>
 import { mapGetters } from 'vuex'
 import Navbar from '~/components/Navbar'
+window.axios = require('axios');
+import Vue from 'vue'
+import router from '~/router'
 
 export default {
+  data: () => ({
+    title: window.config.appName,
+    message: 'mc.animax.mn',
+    server: [],
+    post: []
+  }),
+
   layout: 'basic',
+  methods: {
+    success() {
+    this.$buefy.notification.open({
+        message: 'Амжилттай IP хууллаа!',
+        type: 'is-success'
+    })
+
+},
+
+
+
+onCopy: function (e) {
+  success();
+},
+onError: function (e) {
+  alert('Failed to copy texts')
+}
+},
+created() {
+  axios
+  .get('api/server')
+  .then(response => {
+    this.server = response.data;
+  });
+  let uri = 'api/posts';
+  this.axios.get(uri).then(response => {
+    this.post = response.data.posts;
+  });
+},
   components: {
     Navbar
   },
   metaInfo () {
-    return { title: this.$t('home') }
+    return { title: this.$t('Нүүр') }
   },
 
-  data: () => ({
-    title: window.config.appName
-  }),
+
 
   computed: mapGetters({
-    authenticated: 'auth/check'
+    authenticated: 'auth/check',
+
   })
 }
+
 </script>

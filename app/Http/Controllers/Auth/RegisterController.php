@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Str;
 class RegisterController extends Controller
 {
     use RegistersUsers;
@@ -56,6 +56,7 @@ class RegisterController extends Controller
         ]);
     }
 
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -64,10 +65,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $salt = Str::random(8);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => '$SHA$' . $salt . '$' . hash('sha256', hash('sha256', $data['password']) . $salt),
         ]);
     }
 }

@@ -105,4 +105,18 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     {
         return [];
     }
+    public function isAdmin()
+    {
+        if($this->role_id == 'admin')
+    {
+        return true;
+    }
+        else
+    {
+        return false;
+    }
+    }
+    function hasRole($role) {
+        return ($this->role == $role);
+    }
 }

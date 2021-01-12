@@ -52,8 +52,7 @@
 <script>
 import Form from 'vform'
 import LoginWithGithub from '~/components/LoginWithGithub'
-import Vue from 'vue'
-import router from '~/router'
+
 export default {
   middleware: 'guest',
 

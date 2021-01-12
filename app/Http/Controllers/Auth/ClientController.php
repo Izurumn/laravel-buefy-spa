@@ -9,8 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
-use Auth;
-class LoginController extends Controller
+class ClientController extends Controller
 {
     use AuthenticatesUsers;
 
@@ -32,12 +31,8 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
+        $token = $this->guard()->attempt($this->credentials($request));
 
-        $password = $request->password;
-        $user = User::where('email', $request->email)->first();
-        $parts = explode('$', $user->password);
-        $converter = '$SHA$' . $parts[2] . '$' . hash('sha256', hash('sha256', $password) . $parts[2]);
-        $token = Auth::attempt(['email' => $request->email, 'password' => $converter]);
         if (! $token) {
             return false;
         }
@@ -58,17 +53,43 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
+
     protected function sendLoginResponse(Request $request)
     {
         $this->clearLoginAttempts($request);
         $user = $this->guard()->user();
         $token = (string) $this->guard()->getToken();
         $expiration = $this->guard()->getPayload()->get('exp');
-
+        User::where('id', $user->id)->update([
+          'hash' => md5($user->id)
+        ]);
         return response()->json([
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
+            'user' => [
+              'properties' => [
+                [
+                'name' => 'preferredLanguage',
+                'value' => 'en-us'
+              ],
+              [
+                'name' => 'registrationCountry',
+                'value' => 'MN'
+              ]
+            ],
+            'id' => md5($user->id),
+            'username' => $user->email,
+            ],
+            'accessToken' => $token,
+            'clientToken' => $request['clientToken'],
+            'availableProfiles' => [
+              [
+                'name' => $user->name,
+                'id'  => md5($user->id),
+              ]
+            ],
+            'selectedProfile' => [
+              'name' => $user->name,
+              'id' => md5($user->id)
+            ]
         ]);
     }
 
