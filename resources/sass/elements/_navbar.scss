@@ -1,10 +1,5 @@
-.navbar {
-  font-weight: 600;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  height: 100px;
-  background: url(https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/header/bg-wool-dark.png);
 
-}
+
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
@@ -12,7 +7,34 @@
     display: block;
   }
 }
-
+.fa-lg {
+    font-size: 1.3333333333em;
+    line-height: .75em;
+    vertical-align: -.0667em;
+    width:25px;
+    margin-right: 1.5rem!important;
+}
+.fa-youtube {
+      width: 31px;
+}
+.dflex {
+  display:flex;
+}
+.thumb-s {
+  margin-right:19px;
+}
+.content h5 {
+  margin:0;
+}
+.panel-block {
+  color:white;
+}
+.panel {
+  background-color:grey;
+}
+a {
+  color:white;
+}
 @media screen and (max-width: 600px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
@@ -29,15 +51,15 @@
 .topnav .icon {
   display: none;
 }
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
-body {
-  font-family: 'Source Sans Pro', sans-serif;
-}
+
 .buyitem {
   width:200px;
 }
 .step-title {
   color:white;
+}
+.bg-black-themed {
+  background-color: #1e1e29!important;
 }
 .nav-item {
 
@@ -48,18 +70,120 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
   }
 }
-
-.bbar {
-  background-image: url(https://www.minecraft.net/content/dam/minecraft/home/home-hero-1200x600.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+.title:not(:last-child) {
+  margin:0;
 }
-.navbar-menu {
-background-color: #ffffff00;
+.subtitle {
+  color:white;
+}
+.is-green {
+  background-color: #5ba95b;
+
+}
+.sdb { font-size: 20px;
+    color: white;
+    margin-left: 15px;
+    font-weight: 500;
+}
+.panel-tabs:not(:last-child), .panel-block:not(:last-child) {
+  border:none;
+}
+.is-red {
+  background-color: #b32525;
+
+}
+.is-yellow {
+  background-color: #5959a9;
+
+}
+.dropdown-content {
+  background: none;
+
+}
+.dropdown-item {
+  color:white
+}
+.is-black {
+    color:black;
+}
+.content {
+  color:white;
+}
+body,.hero {
+      background: #1E1E29;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.navbar-link, a.navbar-item {
+    cursor: pointer;
+}
+
+.navb-item {
+    font-weight: bold;
+    color: white;
+}
+@media screen and (min-width: 1024px)
+{
+  .navb-item:hover {
+    color:green;
+    background-color:grey;
+  }
+.navb-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.levelb {
+  background: -webkit-linear-gradient(#ffffff, #45f563);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.levelb:hover {
+background: -webkit-linear-gradient(#ffffff, #0ff3c9ad);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.bg-nexus {
+  background-image: url(/images/cover.png);
+  background-size: contain;
+}
+.navb-item, .navbar-link {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+}
+}
+.navb-item {
+    display: block;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+.navb-item, .navb-link {
+    color:white;
+    display: block;
+    line-height: 1.5;
+    padding: .5rem .75rem;
+    position: relative;
+}
+a.panel-block:hover, label.panel-block:hover {
+    background-color: grey;
+}
+.heading {
+  color:white;
+}
+.navbar {
+  background:none;
 }
 .navbar-item {
+  font-weight: bold;
   color:white;
-  font-family: unset;
 }
 .nav-link {
   .svg-inline--fa {

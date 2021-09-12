@@ -1,4 +1,31 @@
 <template>
+  <div>
+    <b-modal :active.sync="isCardModalActive2" :width="640" scroll="keep">
+<div class="card">
+  <div class="card-content" style="background-color:black;">
+      <div class="media" style="display:inline-grid;">
+        <b-field class="black" label="Title">
+          <b-input
+                    type="text"
+                    name="title"
+                    required
+                    v-model="title2">
+                  </b-input>
+        </b-field>
+
+        <div style="width:400px">
+      <ckeditor :editor="editor" v-model="body2" :config="editorConfig"></ckeditor>
+      </div>
+
+        <b-button class="is-black" size="is-medium" @click="create()">
+        Оруулах
+        </b-button>
+      </div>
+
+
+  </div>
+</div>
+</b-modal>
       <card :title="$t('home')">
         <h1 v-if="this.$userId='admin'">
           <button class="button is-primary is-medium"
@@ -35,44 +62,7 @@
                         @click="confirm(props)">
                         устгах
                     </button>
-                    <b-modal :active.sync="isCardModalActive2" :width="640" scroll="keep">
-              <div class="card">
-                  <div class="card-content" style="background-color:black;">
-                      <div class="media" style="display:inline-grid;">
-                        <b-field class="black" label="Title">
-                          <b-input
-                                    type="text"
-                                    name="title"
-                                    required
-                                    v-model="title2">
-                                  </b-input>
-                        </b-field>
-                        <b-field class="black" label="Body">
-                          <b-input
-                                    type="textarea"
-                                    name="body"
-                                    required
 
-                                    v-model="body2">
-                                  </b-input>
-                        </b-field>
-
-
-                        <b-button class="is-black" size="is-medium" @click="create()">
-                        Оруулах
-                        </b-button>
-                      </div>
-
-                      <div class="content">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                          <a>#css</a> <a>#responsive</a>
-                          <br>
-                          <small>11:09 PM - 1 Jan 2016</small>
-                      </div>
-                  </div>
-              </div>
-          </b-modal>
                     <b-modal :active.sync="isCardModalActive" :width="640" scroll="keep">
               <div class="card">
                   <div class="card-content" style="background-color:black;">
@@ -96,13 +86,7 @@
                         </b-button>
                       </div>
 
-                      <div class="content">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                          <a>#css</a> <a>#responsive</a>
-                          <br>
-                          <small>11:09 PM - 1 Jan 2016</small>
-                      </div>
+
                   </div>
               </div>
           </b-modal>
@@ -126,8 +110,13 @@
           </b-table>
         </h1>
       </card>
+    </div>
 </template>
-
+<style>
+.ck p,.ck strong {
+  color:black;
+}
+</style>
 <script>
 window.axios = require('axios');
 import Vue from 'vue'
@@ -171,7 +160,7 @@ export default {
           this.$buefy.dialog.confirm({
               message: 'Continue on this task?',
               onConfirm: () => {
-                axios.post('https://mc.animax.mn/api/admin/posts/delete/' + props.row.id)
+                axios.post('/api/admin/posts/delete/' + props.row.id)
                   .then(response => {
                      this.$router.go();
                   })
@@ -188,7 +177,7 @@ export default {
       },
 
       aa(){
-        axios.put('https://mc.animax.mn/api/admin/posts/update/' + this.id, {
+        axios.put('/api/admin/posts/update/' + this.id, {
             title: this.title,
             body: this.body,
 
@@ -204,7 +193,7 @@ export default {
       },
       create(){
 
-        axios.post('https://mc.animax.mn/api/admin/posts/create/', {
+        axios.post('/api/admin/posts/create/', {
             title: this.title2,
             body: this.body2,
 

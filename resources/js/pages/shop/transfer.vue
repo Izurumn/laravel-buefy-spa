@@ -1,228 +1,223 @@
 <template>
-  <section class="section">
-    <center>        <b-steps
-            v-model="activeStep"
-            :animated="isAnimated"
-            :rounded="isRounded"
-            :has-navigation="hasNavigation"
-            :icon-prev="prevIcon"
-            :icon-next="nextIcon"
-            :label-position="labelPosition"
-            :mobile-mode="mobileMode"
-            type="is-info">
-            <b-step-item label="Холбоо барих мэдээлэл" icon="account-key"></b-step-item>
-            <b-step-item label="Төлбөр төлөх" icon="account"></b-step-item>
-    </b-steps>
-  </center>
-    <div class="columns is-centered">
-<div class="">
-  <div class="container-contact100" v-for="servers in server" :key="server.id">
-		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
-          <p class="help is-danger">{{ namez }}</p>
-            <p class="help is-danger">{{ utasz }}</p>
-              <p class="help is-danger">{{ emailz }}</p>
-              <p class="help is-danger">{{ codez }}</p>
-				</span>
-
-				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Name is required">
-					<span class="label-input100">Minecraft Username/Сервер лүү нэвтрэх нэр/</span>
-					<input v-model="mc_username" class="input100" type="text" name="name" placeholder="Нэрээ оруулна уу...">
-				</div>
-
-				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-					<span class="label-input100">И-Майл хаяг *</span>
-					<input v-model="email" class="input100" type="text" name="email" placeholder="И-Майл хаягаа бичнэ үү">
-				</div>
-
-				<div class="wrap-input100">
-					<span class="label-input100">Холбогдох дугаар/Mobicom,Unitel,Skytel,G-Mobile/</span>
-					<input v-model="utas" class="input100" type="text" name="number" placeholder="99xxxxxx">
-				</div>
-        <h2>  <span :data-text="message"></span></h2>
-				<div class="wrap-input100 validate-input" data-validate="Message is required">
-					<span class="label-input100">Дээрх кодыг дуурайлган бич</span>
-					<input v-model="code" class="input100" name="text" placeholder="..."></textarea>
-				</div>
-
-				<div class="container-contact100-form-btn">
-					<div class="wrap-contact100-form-btn">
-						<div class="contact100-form-bgbtn"></div>
-						<b-button class="contact100-form-btn" @click="post(servers)">
-							Төлбөр төлөх
-						</b-button>
-					</div>
-				</div>
-			</form>
-		</div>
-
-		<span class="contact100-more">
-				Тусламж авах бол 99267318
-		</span>
-	</div>
-</div>
-
-      <!-- <div class="column is-half is-offset-one-quarter">
-
-  <div class="content" v-for="servers in server" :key="server.id">
-<div class="title is-light">{{servers.title}}</div>
-<div class="buyitem">
-
-
-<b-field class="white" label="Minecraft Username/Нэвтрэх нэр/">
-  <b-input placeholder="starken г.м"
-            type="mc_username"
-            name="mc_username"
-            required
-            validation-message="Серверийн нэвтрэх нэрээ бич"
-            v-model="mc_username">
-          </b-input>
-</b-field>
-<b-field class="white" label="Гар утасны дугаар">
-  <b-input placeholder="95xxxxxx"
-            type="number"
-            minlength="8"
-            maxlength="8"
-            required
-            name="utas"
-            validation-message="Дугаараа бич"
-            v-model="utas">
-          </b-input>
-</b-field>
-<b-field class="white" label="E-Майл хаяг">
-  <b-input placeholder="xxxxx@gmail.com"
-            type="email"
-            required
-            name="email"
-            validation-message="И-майл бич"
-            v-model="email">
-          </b-input>
-</b-field>
-
-<b-field class="white" label="Дээрх кодыг дуурайлган бичнэ үү">
-  <b-input placeholder=""
-            type="text"
-            minlength="10"
-            maxlength="10"
-            required
-            name="code"
-            validation-message="кодыг бичнэ үү"
-            v-model="code">
-          </b-input>
-</b-field>
-<b-button class="is-light" size="is-medium" @click="post(servers)">
-Төлбөр төлөх
-</b-button>
-
-</div>
+    <div class="container-3" style="padding:25px;">
+      <div :class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Үйлчилгээний нөхцөл</p>
+      <button class="delete" aria-label="close" @click="close()"></button>
+    </header>
+    <section class="modal-card-body is-white">
+      Thank you for supporting! We hope you enjoy the perks and benefits of your purchase!
+ <br>
+Please ensure that you re-read the terms and conditions you agreed to before you made your purchase and that you have met the conditions.
+ <br>
+If you have any questions or issues, please e-mail: info@jartexnetwork.com
+ <br>
+Terms of Service
+ <br>
+Jartexnetwork would like to advise that all payments are made through the server store are final.
+This means once you make a purchase you cannot claim your money back if you want it later down the line. We do not offer refunds to customers. Please take time and care when choosing to make a purchase. Before purchasing, you must understand and agree to the following terms of service agreement. The account holder of the payment gateway also be over the age of 18 or have consent from someone over the age of 18.
+ <br>
+1. You are over the age of 18 or have parental permission.<br>
+2. You have the authorization to use the debit/credit card and/or PayPal account.<br>
+3. You will not chargeback, dispute, reverse any payments.<br>
+4. You will not abuse your gifts and/or ranks.<br>
+5. We reserve the right to ban any account without notice for any reason.<br>
+6. We always have permission to change or delete packages/(rank) perks.<br>
+7. We are allowed to delete your packages/(rank) perks without any reason.<br>
+8. Charge-back will result in a perm ipban/ban.<br>
+9. Top voter vouchers only valid without a sale.<br>
+ <br>
+Refund Policy
+ <br>
+All sales are final, you may not buy-back, stop, credit the server by any means necessary in order to receive your funds back that of which have been paid. And in doing so we reserve the right to disallow your continued play on the server/forums and not allow further funds to be added or taken away. We reserve the right to pursue any legal or collection action necessary to recover damages in the event of a forced charge-back.
+ <br>
+All purchases are final. There are absolutely no refunds*
+ <br>
+*The cases that we give refunds are limited to: (Accidentally charging twice, not receiving the package or if we believe a refund is justifiable due to circumstances provided etc). We do not provide refunds to claims of unauthorized purchases. It is your responsibility to ensure that you are the purchase is made by the cardholder.
+ <br>
+Issuing a chargeback or claiming refunds is a violation of our terms of services and will result in the loss of your rank, and you will be permanently banned from Jartexnetwork.
+ <br>
+Rank powers are a privilege, not a right! We track all console commands, logs etc. If we find out that you are abusing your powers or impeding the in-game progress of other users against their will you will lose your advantage with no refunds.
+ <br>
+Privacy Policy
+ <br>
+This policy covers how we use your personal information. We take your privacy seriously and will take all measures to protect your personal information.
+ <br>
+Any personal information received will only be used to fill your order. We will not sell or redistribute your information to anyone.
+ <br>
+JartexNetwork is not affiliated with Minecraft, Mojang AB and/or Notch Development AB
+ <br>
+By making a purchase you agree to our refund policy and our payment terms.
+<br>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" @click="close()">Зөвшөөрч байна</button>
+    </footer>
   </div>
-
-</div> -->
-
 </div>
-</section>
+  <div class="columns">
+    <div class="column is-full-mobile is-full-tablet is-three-quarters-desktop is-three-quarters-widescreen is-three-quarters-fullhd">
+
+
+    <article class="message is-info">
+
+<div class="message-body">
+<b>{{item.servername }} · {{item.name}}</b> <b style="float: right;">{{item.price}}₮</b>
+</div>
+</article>
+      <div class="column">
+        <article class="message is-dark">
+  <div class="message-header">
+    <p>Кофун хямдрал</p>
+  </div>
+  <div class="message-body">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input" type="text" placeholder="Код">
+          </div>
+          <div class="control">
+            <a class="button is-info">
+              Оруулах
+            </a>
+          </div>
+        </div>
+    </div>
+</article>
+<article v-show="errors" class="message">
+  <div class="message-body" style="color:red;">
+    Таны утасны дугаар эсвэл username буруу байна.
+    <br>
+        </div>
+</article>
+        <article class="message is-dark">
+  <div class="message-header">
+    <p>Төлбөрийн мэдээлэл</p>
+  </div>
+  <div class="message-body">
+    <div class="field">
+      <label class="label is-black">Minecraft username</label>
+      <div class="control">
+        <input class="input" v-model="username" type="text" placeholder="Minecraft username">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label is-black">Холбоо барих утас</label>
+      <div class="control">
+        <input class="input" v-model="number" type="text" placeholder="99******">
+      </div>
+    </div>
+
+    </div>
+</article>
+<article v-show="errors2" class="message">
+  <div class="message-body" style="color:red;">
+    Та үйлчилгээний нөхцлийг хүлээн зөвшөөрч байж гүйлгээг цааш үргэлжлүүлнэ...
+    <br>
+        </div>
+</article>
+<article class="message is-dark">
+<div class="message-header">
+<p>Гэрээ</p>
+</div>
+<div class="message-body">
+  <label class="checkbox">
+    <input type="checkbox" v-model="checked">
+    Би энэ <a @click="open()">үйлчилгээний нөхцлийг</a> уншсан бөгөөд зөвшөөрч байна.
+  </label>
+</div>
+</article>
+<article class="message is-dark">
+  <div class="message-header">
+    <p>Нийт үнэ • {{item.price}}₮</p>
+  </div>
+</article>
+<article class="message is-dark">
+<div class="message-header">
+<p>Гүйлгээ</p>
+</div>
+<div class="message-body">
+    <button class="button is-success is-outlined is-large is-fullwidth" @click="create()">Дансаар гүйлгээ хийх</button>
+</div>
+</article>
+  </div>
+</div>
+<div class="column is-full-mobile is-full-tablet is-3-desktop is-3-widescreen is-3-fullhd">
+  <sidebar />
+</div>
+</div>
+</div>
 </template>
 
-<style>
-[data-text] {
-  color: orange;
-}
-[data-text]::after {
-  content: attr(data-text);
-}
-</style>
 <script>
-
-window.axios = require('axios');
-import Vue from 'vue'
-import router from '~/router'
+import axios from 'axios'
+import sidebar from './sidebar'
 export default {
-
+  components: {
+    sidebar
+  },
   data() {
     return {
-      server: '',
-      utas: '',
-      email: '',
-      mc_username: '',
-      code: '',
-      namez: '',
-      utasz: '',
-      emailz: '',
-      codez: '',
-      activeStep: 0,
-      message: '',
-      showSocial: false,
-      isAnimated: true,
-      isRounded: true,
-      isStepsClickable: false,
-
-      hasNavigation: false,
-      customNavigation: false,
-      isProfileSuccess: false,
-
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
-      labelPosition: 'bottom',
-      mobileMode: 'minimalist'
+      item: [],
+      price: '',
+      username: '',
+      number: '',
+      price: '',
+      order: [],
+      hash: '',
+      errors: false,
+      ners: '',
+      modal: 'modal',
+      checked: false,
+      errors2: false,
     }
   },
   created() {
-//  let uri = '/anime/' + this.$route.params.slug + '/episode/' + this.$route.params.Dugaar;
-  let uri = 'api/shop/item/' + this.$route.params.id;
-  this.axios.get(uri).then(response => {
-    this.server = response.data.server;
-  });
-  let message = this.rndStr(10)
-
-  this.message = message
-},
-methods: {
-  rndStr(len) {
-    let text = ""
-    let chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-
-    for( let i=0; i < len; i++ ) {
-      text += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-
-    return text
+    let uri = 'api/item/' + this.$route.params.id;
+    this.axios.get(uri).then(response => {
+      this.item = response.data.item;
+      this.ners = this.item.servername + ' ' + this.item.name
+    });
   },
-  post(servers,code) {
-    this.namez = ''
-    this.utasz = '';
-    this.emailz = '';
-    this.codez = '';
-    if(!this.mc_username) {
-      this.namez = 'Username оруулна уу';
-    }
-    if(this.utas < 79999999) {
-      this.utasz = 'Дугаараа оруулна уу';
-    }
-    if(!this.email) {
-      this.emailz = 'И-Майлаа оруулна уу';
-    }
-    if(!this.message == this.code) {
-      this.codez = 'Кодоо зөв оруулна уу'
-    }
-     if(this.mc_username && this.utas && this.email && this.message == this.code) {
-    axios
-        .post('https://mc.animax.mn/api/order', {
-          mc_username: this.mc_username,
-          utas: this.utas,
-          email: this.email,
-          shopbyserver: this.$route.params.id
+  metaInfo () {
+    return { title: this.ners }
+  },
+  methods: {
+    open() {
+      this.modal = 'modal is-active'
+    },
+    close() {
+      this.modal = 'modal'
+    },
+    create() {
+
+      if(this.number.length==8 && this.username.length>4) {
+        if(this.checked==true) {
+      this.gobit()
+      }
+      else {
+        this.errors2 = true
+      }
+      }
+      else {
+        this.errors = true
+      }
+    },
+    gobit() {
+      let uri = 'api/order/';
+      let formData = new FormData()
+       formData.append('price', this.item.price)
+       formData.append('username', this.username)
+       formData.append('number', this.number)
+       formData.append('items_id', this.item.id)
+       axios.post(uri, formData)
+       .then(response => {
+         this.order = response.data
+         this.$cookie.set('order', this.order, { expires: '60m' });
+         this.$router.push('/buy/' + this.order);
         })
-        .then( response => {
-                        router.push({ path: "/transaction/" + servers.price + "/u/" + this.mc_username});
-                    }, error => {
-                        console.log('erro');
-                    });
-                  }
-
-
+    }
   }
-}
-
 }
 </script>

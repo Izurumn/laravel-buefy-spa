@@ -30,6 +30,9 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
+     protected function hash($string){
+       return hash('sha256', $string . config('app.encryption_key'));
+     }
     protected function attemptLogin(Request $request)
     {
 
@@ -37,7 +40,12 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         $parts = explode('$', $user->password);
         $converter = '$SHA$' . $parts[2] . '$' . hash('sha256', hash('sha256', $password) . $parts[2]);
-        $token = Auth::attempt(['email' => $request->email, 'password' => $converter]);
+
+        $user = User::where([
+          'email' => $request->email,
+          'password' => $converter
+         ])->first();
+         $token = Auth::login($user);
         if (! $token) {
             return false;
         }

@@ -8,6 +8,6 @@ class Server extends Model
 {
   ///  protected $fillable = ['id', 'anime_id'];
   protected $table='servers';
-  protected $fillable = ['name', 'skey'];
-protected $hidden = ["skey"];
+  protected $fillable = ['name', 'key', 'url'];
+  protected $hidden = ["key"];
 }

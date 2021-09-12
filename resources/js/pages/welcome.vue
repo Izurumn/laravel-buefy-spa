@@ -1,38 +1,90 @@
 <template>
-  <div>
-  <section class="hero container is-medium blg">
-    <div class="hero-body bbar">
-      <div class="container">
-        <h1 class="title">Nexus сайтад тавтай морил</h1>
-        <h3 class="title is-5">
-          Байнгын шинэчлэлт, маш олон төрлийн сервер,<br> Монголын хамгийн олон тоглогчтой серверт нэгдэхэд бэлэн үү?
-          <br>
-      </h3>
-      <b-button class="is-light" size="is-large" tag="a" href="http://mc00.animax.mn/dl/Minecraft.exe" target="_blank">
-        MINECRAFT ТАТАХ
-      </b-button>
-      </div>
+  <div class="container-3">
+    <section class="section">
+      <div class="mctitle">
+      <h1 class="title is-1">MC.NEXUS.MN</h1>
     </div>
-  </section>
-  <div class="container">
-  <article class="message" v-for="posts in post"
-   :key="post.id" >
-<div class="message-header">
-  {{posts.title}}
+      <h2 class="subtitle">
+        {{server.players_now}} тоглогч серверт байна.
+      </h2>
+            <div class="button is-large is-success"><a href="https://cloud.homenet.mn/s/f9oiX25HTZmd3BG">MINECRAFT ТАТАХ</a></div>.
+    </section>
+
+  <div class="columns">
+    <div class="column is-full-mobile is-full-tablet is-two-thirds-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
+      <div class="card">
+      <header class="card-header">
+      <p class="card-header-title">
+        Шинэчлэлт
+      </p>
+    </header>
+  </div>
+  <div style="background-color:#2c2c3c;padding:25px;">
+    <article class="media" v-for="posts in post" :key="post.id" >
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="/images/grass-b.png">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{posts.title}}</strong>
+            <br>
+            <font v-html="posts.body"> </font>
+               </p>
+        </div>
+      </div>
+      <div class="media-right">
+        {{posts.created_at}}
+      </div>
+    </article>
+  </div>
 </div>
-<div class="message-body" v-html="posts.body">
+<div class="column">
+  <div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      Сервер
+    </p>
+
+  </header>
+  <div class="card-content">
+    <div class="content dflex">
+    <div class="thumb-s">
+      <img src="/images/dirtblock.png">
+    </div>
+    <div class="serverinfo thumb-s">
+      <h5>Nexus Minecraft</h5>
+      <small>{{server.players_now}} тоглогч серверт байна.</small>
+    </div>
+    <div class="button is-small is-success is-light" style="margin-left:auto"
+    v-clipboard:copy="message"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">
+      IP ХУУЛАХ
+    </div>
+    </div>
+  </div>
+  <div class="card-content">
+    <div class="content dflex">
+    <div class="thumb-s">
+      <img src="/images/discord.png">
+    </div>
+    <div class="serverinfo thumb-s">
+      <h5>Nexus Discord</h5>
+      <small>{{server.discord}} хэрэглэгч серверт байна.</small>
+    </div>
+    <div class="button is-small is-link is-light" style="margin-left:auto">
+      <a href="https://mc.nexus.mn/discord">НЭГДЭХ</a>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
 
 </div>
-</article>
-</div>
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      <a href="">Facebook</a>
-      <a href="">Discord</a>
-    </p>
-  </div>
-</footer>
+
 </div>
 </template>
 <style>
@@ -59,7 +111,6 @@ export default {
     post: []
   }),
 
-  layout: 'basic',
   methods: {
     success() {
     this.$buefy.notification.open({
@@ -72,28 +123,29 @@ export default {
 
 
 onCopy: function (e) {
-  success();
+  this.success();
 },
 onError: function (e) {
   alert('Failed to copy texts')
 }
 },
 created() {
-  axios
-  .get('api/server')
-  .then(response => {
-    this.server = response.data;
-  });
   let uri = 'api/posts';
   this.axios.get(uri).then(response => {
     this.post = response.data.posts;
   });
+  axios
+  .get('api/nexus')
+  .then(response => {
+    this.server = response.data;
+  });
+
 },
   components: {
     Navbar
   },
   metaInfo () {
-    return { title: this.$t('Нүүр') }
+    return { title: 'Нүүр' }
   },
 
 

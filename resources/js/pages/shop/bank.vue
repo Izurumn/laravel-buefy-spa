@@ -1,94 +1,88 @@
 <template>
-  <section class="section">
-    <center>        <b-steps
-            v-model="activeStep"
-            :animated="isAnimated"
-            :rounded="isRounded"
-            :has-navigation="hasNavigation"
-            :icon-prev="prevIcon"
-            :icon-next="nextIcon"
-            :label-position="labelPosition"
-            :mobile-mode="mobileMode"
-            type="is-info">
-        <b-step-item label="Холбоо барих мэдээлэл" icon="account-key"></b-step-item>
-        <b-step-item label="Төлбөр төлөх" icon="account"></b-step-item>
-
-    </b-steps>
-  </center>
-    <div class="columns is-centered">
+  <div>
+  <div v-if="this.$route.params.id==cookie" class="container-3">
+    <div class="notification is-success">
+      Таны захиалга амжилттай бүртгэгдлээ.
+    </div>
+    <div class="columns">
       <div class="column">
-        <h2 class="title">Доорх банкуудаар төлбөр хийх боломжтой.</h2>
-        <b-table :data="data" :columns="columns"></b-table>
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <div class="card">
+              <div class="card-content">
+                <div class="content">
+                  <img style="max-width:200px" src="/images/qpay.png">
+                  <br>
+                  <b>Банк:</b> Хаан банк
+                  <br>
+                  <b>Шилжүүлэх данс:</b> 5300482747
+                  <br>
+                  <b>Дансны нэр:</b> Б******* Энхбат
+                  <br>
+                  <b>Гүйлгээний дүн:</b> {{this.order.price}}
+                  <br>
+                  <b>Гүйлгээний утга:</b> {{this.order.username}}
+                  <br>
+                  Дээрх данс руу гүйлгээгээ хийнэ үү... <br>Автомат систем ажиллаж байна.
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+  <div class="card-content">
+    <div class="content">
+      <img style="max-width:400px" src="/images/pico.png">
+      <h2 style="color:white;">Анхааруулга(Заавал унш!)</h2>
+      <font style="color:red">• Айтм өгөхөд заавал серверт байх хэрэгтэй.</font>
+      <br>
+      <font style="color:red">• Энэхүү захиалга хуурамч тохиолдолд таны акк бан авна</font>
+      <br>
+      • Гүйлгээний дүн зөрүүтэй тохиолдолд ранк, айтм орохгүй
+      <br>
+      • Гүйлгээ амжилттай болбол таны захиалсан ранк, айтм 10 минутанд орно.
+      <br>
+      • Цагийн дотор гүйлгээ хийгээгүй тохиолдолд ахин шинээр захиална.
+      <br>
+      • Хэрэв 10 минутанд ороогүй тохиолдолд та ажлын цагаар Discord/Odnoo админтай холбогдоно уу...
+      <br>
+      • Санал хүсэлтээ илгээх бол <a style="color:grey;" href="https://app.feedbacky.net/b/nexus">энд дар</a>
+        </div>
+  </div>
+</div>
       </div>
     </div>
-    <div class="is-danger">
-      <b-notification
-           type="is-danger"
-           >
-           Бид ойролцоогоор таны ранкийг хоёр цагийн дотор баталгаажуулж хийх болно. Баярлалаа.
-           Бидэнтэй холбоо барих дугаар: 99267318
-       </b-notification>
-    </div>
-  </section>
+  </div>
+<div v-else>
+  cookie not found
+</div>
+</div>
 </template>
 
 <script>
 export default {
+  metaInfo () {
+    return { title: 'Гүйлгээ хийх' }
+  },
+
   data() {
     return {
-      activeStep: 1,
-
-      showSocial: false,
-      isAnimated: true,
-      isRounded: true,
-      isStepsClickable: false,
-
-      hasNavigation: false,
-      customNavigation: false,
-      isProfileSuccess: false,
-
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
-      labelPosition: 'bottom',
-      mobileMode: 'minimalist',
-      server: [],
-      data: [
-                   { 'bn': 'Khan bank', 'ai': '5023278124 MNT/₮', 'an': 'Баттөмөр Энхбат', 'price': this.$route.params.price + " ₮", 'utga': this.$route.params.mc_username },
-                   { 'bn': 'Candy', 'an': '99267318', 'price': this.$route.params.price + "CANDY", 'utga': this.$route.params.mc_username },
-               ],
-               columns: [
-                   {
-                       field: 'bn',
-                       label: 'Банк нэр',
-                   },
-                   {
-                       field: 'ai',
-                       label: 'Дансны дугаар',
-                   },
-                   {
-                       field: 'an',
-                       label: 'Дансны нэр',
-                   },
-                   {
-                       field: 'price',
-                       label: 'Гүйлгээний дүн',
-                   },
-                   {
-                     field: 'utga',
-                     label: 'Гүйлгээний утга',
-                   }
-
-               ]
-
+      cookie: '',
+      route: '',
+      order: []
     }
   },
   created() {
-//  let uri = '/anime/' + this.$route.params.slug + '/episode/' + this.$route.params.Dugaar;
-  let uri = 'api/shop/item/' + this.$route.params.id;
-  this.axios.get(uri).then(response => {
-    this.server = response.data.server;
-  });
-
-},
+    this.route = this.$route.params.id
+    this.cookie = this.$cookie.get('order')
+    let uri = 'api/order/' + this.$route.params.id;
+    this.axios.get(uri).then(response => {
+      this.order = response.data.order;
+    });
+  }
 }
 </script>
